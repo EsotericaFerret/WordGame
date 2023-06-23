@@ -1,58 +1,60 @@
 import java.util.Scanner;
 
 public class GamePlay {
-
+     static Scanner scan = new Scanner(System.in);
+     static boolean playAgain = true;
+     static boolean b = false;
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        Person player = new Person();
+        Players player = new Players();
         boolean bool = false;
-
+        String hostNameFirst = "Bob";
+        String hostNameLast = "Barker";
+        Hosts host = new Hosts(hostNameFirst, hostNameLast);
         System.out.println("Please enter your first name!");
         String firstName = scan.nextLine();
-        System.out.println("Would you like to enter a last name? (1/2)");
+        System.out.println("Would you like to enter a last name? (y/n)");
         while (bool == false) {
-            String answer;
-            int parsedAnswer;
-            answer = scan.nextLine();
-           parsedAnswer = validationCheck(answer);
-            if (parsedAnswer == 1) {
+            String input = scan.nextLine();
+            if (input.equals("y")) {
                 System.out.println("Please enter your last name!");
                 String lastName = scan.nextLine();
-                player = new Person(firstName, lastName);
+                player = new Players(firstName, lastName);
                 bool = true;
-            }
-            else if (parsedAnswer == 2) {
+                }
+            else if (input.equals("n")) {
                 System.out.println("Okay, no last name! Here we go!");
-                player = new Person(firstName);
+                player = new Players(firstName);
                 bool = true;
-            }
+                }
             else {
-                System.out.println("Sorry, that's an invalid response! Please enter 1 for yes or 2 for no!");
+                System.out.println("Sorry, that's an invalid response! Please enter y for yes or n for no!");
                 bool = false;
             }
+            while (playAgain == true) {    
+                host.randomizeNum();
+                b = false;
+                while (b == false) {
+                    b = Turn.takeTurn(player, host);
+                }
+                System.out.println("Would you like to play again? (y/n)");
+                bool = false;
+                while (bool == false) {
+                    String answer = scan.nextLine();
+                    if (answer.equals("y")) {
+                        playAgain = true;
+                        bool = true;
+                    }   
+                    else if (answer.equals("n")) {
+                        playAgain = false;
+                        bool = true;
+                    }
+                    else {
+                        System.out.println("Sorry, that's an invalid response! Please enter y for yes or n for no!");
+                        bool = false;
+                    }
+                }
+            }
         }
-        Numbers guessNumber = new Numbers();
-        guessNumber.generateNumber();
-        bool = false;
-        String name = player.getName();
-        while (bool == false) {
-            System.out.println("Okay, " + name + ", guess a number between 0-100!");
-            String guess = scan.nextLine();
-            int guessInt = validationCheck(guess);
-            bool = guessNumber.compareNumber(guessInt);
-        }
-        scan.close();
-    }
-    public static int validationCheck(String foo) {
-        int i = 0;
-        try {
-            i = Integer.parseInt(foo);
-        }
-        catch (Exception e) {
-            System.out.println("Invalid value! Closing!");
-            System.exit(400);
-        }
-        return i;
-
     }
 }
+

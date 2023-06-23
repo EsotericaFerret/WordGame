@@ -1,7 +1,7 @@
 public class Person {
 
-    private String firstName;
-    private String lastName;
+    protected String firstName;
+    protected String lastName;
     public Person(){   
     }
 
@@ -19,7 +19,7 @@ public class Person {
     public void setLastName(String last) {
         lastName = last;
     }
-    public String getName(){
+    public String toString(){
 
         String fullName = firstName + " " + lastName;
         return fullName;

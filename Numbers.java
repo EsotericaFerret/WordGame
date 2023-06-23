@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Numbers {
-    private int randomNum;
+    private static int randomNum;
     
     public void setRandomNum(int num) {
         randomNum = num;
