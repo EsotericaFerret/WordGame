@@ -32,7 +32,7 @@ public class Players extends Person{
     }
     @Override
     public String toString() {
-        String allPlayerInfo = firstName + " " + lastName + ": " + playerMoney;
+        String allPlayerInfo = firstName + " " + lastName + ": $" + playerMoney;
         return allPlayerInfo;
     }
 }
