@@ -1,16 +1,14 @@
+import java.util.Scanner;
 public class Hosts extends Person {
-    private Numbers num;
-    public Hosts(String first, String last) {
-        
-        setFirstName(first);
-        setLastName(last);
-        num = new Numbers();
+    public Hosts(Scanner scnr) {
+        System.out.println("Please enter host's first name.");
+        setFirstName(scnr.nextLine());
+        System.out.println("Please enter host's last name.");
+        setLastName(scnr.nextLine());
     }
-    public void randomizeNum() {
-        num = new Numbers();
-        num.generateNumber();
+    public void setPhrase(String phrase) {
+        Phrases.setPhrase(phrase);
     }
-    public Numbers getRandNum() {
-        return num;
-    }
+    
+
 }
