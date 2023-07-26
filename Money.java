@@ -1,19 +1,23 @@
+import javax.swing.*;
+
 public class Money implements Award {
     static int reward = 1000;
     static int penalty = 200;
 
-    public int displayWinnings(Players player, boolean bool) {
-        if (bool == true) {
+    public void displayWinnings(Players player, boolean bool) {
+        String message;
+        if (bool) {
             player.addMoney(reward);
-            System.out.println("You win $" + reward);
-            System.out.println(player.toString());
-            return reward;
-        }
-        else {
+            message = "You win $" + reward;
+        } else {
             player.subMoney(penalty);
-            System.out.println("You lose $" + penalty);
-            System.out.println(player.toString());
-            return penalty * -1;
+            message = "You lose $" + penalty;
         }
+
+        // Display the message in a dialog box
+        JOptionPane.showMessageDialog(null, message);
+
+        // You can optionally print the player details to the console as before
+        System.out.println(player.toString());
     }
 }

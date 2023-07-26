@@ -1,3 +1,3 @@
 public abstract interface Award {
-    public abstract int displayWinnings(Players player, boolean bool);
+    public abstract void displayWinnings(Players player, boolean bool);
 }
