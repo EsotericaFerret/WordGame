@@ -1,5 +1,4 @@
 import java.util.Random;
-import javax.swing.*;
 
 public class Physical implements Award {
     String[] prizes = {"car", "house", "washer and dryer", "laptop", "fridge"};
@@ -20,10 +19,15 @@ public class Physical implements Award {
             message = "Sorry, " + player.firstName + ", you lost out on a brand new " + prizes[randPrize] + "!";
         }
         
-        // Display the message in a dialog box
-        JOptionPane.showMessageDialog(null, message);
+        if (GamePlayGUI.saveMessages == true) {
+        GamePlayGUI.gameInfo.append(message + "\n");
+        }
+        else {
+            GamePlayGUI.gameInfo.setText(message + "\n");
+            GamePlayGUI.gameInfo.revalidate();
+        }
 
         // You can optionally print the player details to the console as before
-        System.out.println(player.toString());
+        // System.out.println(player.toString());
     }
 }

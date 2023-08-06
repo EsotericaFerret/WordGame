@@ -6,7 +6,9 @@ public class Phrases {
     static char[] phraseBlank;
     static String currentSolution;
 
-    static public void setPhrase(String phrase) {
+    static public String setPhrase(String phrase) {
+
+
         StringBuilder sb = new StringBuilder();
         playingPhrase = phrase;
         phraseAnswer = playingPhrase.toCharArray();
@@ -23,6 +25,39 @@ public class Phrases {
             sb.append(phraseBlank[i]);
         }
         currentSolution = sb.toString();
+        return currentSolution;
+    }
+
+    protected static boolean compareLetter(char charVar) {
+        StringBuilder sb = new StringBuilder();
+        boolean correct = false;
+        for (int i = 0; i < phraseAnswer.length; ++i) {
+            if (charVar == phraseAnswer[i]) {
+                phraseBlank[i] = phraseAnswer[i];
+                correct = true;
+            }
+            else if (Character.toUpperCase(charVar) == phraseAnswer[i]) {
+                phraseBlank[i] = phraseAnswer[i];
+                correct = true;
+            }
+            else if (Character.toLowerCase(charVar) == phraseAnswer[i]) {
+                phraseBlank[i] = phraseAnswer[i];
+                correct = true;
+            }
+        }
+        for (int i = 0; i < phraseBlank.length; ++i) {
+            sb.append(phraseBlank[i]);
+        }
+        currentSolution = sb.toString();
+        return correct;
+    }
+
+    public static boolean checkFinish() {
+        if (currentSolution.indexOf('_') == -1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static char dataValidation() {
@@ -49,29 +84,5 @@ public class Phrases {
             }
         }
         return letter;
-    }
-
-    protected static boolean compareLetter(char charVar) {
-        StringBuilder sb = new StringBuilder();
-        boolean correct = false;
-        for (int i = 0; i < phraseAnswer.length; ++i) {
-            if (charVar == phraseAnswer[i]) {
-                phraseBlank[i] = phraseAnswer[i];
-                correct = true;
-            }
-        }
-        for (int i = 0; i < phraseBlank.length; ++i) {
-            sb.append(phraseBlank[i]);
-        }
-        currentSolution = sb.toString();
-        return correct;
-    }
-
-    public static boolean checkFinish() {
-        if (currentSolution.indexOf('_') == -1) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

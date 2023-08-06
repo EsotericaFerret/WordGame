@@ -1,53 +1,69 @@
 import javax.swing.*;
+import java.awt.*;
+import java.util.*;
 
 public class GamePlayGUI {
+    static boolean saveMessages = false;
     private static boolean playAgain = true;
-
+    static JFrame frame = new JFrame("Word Game");
+    static JPanel outerPanel = new JPanel();
+    static JPanel innerPanel =new JPanel();
+    static JScrollPane scroll = new JScrollPane(innerPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    static JTextArea gameInfo = new JTextArea();
+    static ArrayList<Players> currentPlayers = new ArrayList<Players>();
+    static ArrayList<Hosts> currentHosts = new ArrayList<Hosts>();
+    static JCheckBox checkBox = new JCheckBox("Save Messages");
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Word Game");
+        new BoxLayout(innerPanel, BoxLayout.Y_AXIS);
+        frame.setPreferredSize(new Dimension(800, 900));
+        outerPanel.setPreferredSize(new Dimension(800, 900));
+       
+        scroll.setPreferredSize(new Dimension(700, 800));
+        JMenuBar mainBar = new JMenuBar();
+        JMenu menu1 = new JMenu("Game");
+        JMenu menu2 = new JMenu("About"); 
+        JMenuItem addPlayer = new JMenuItem("Add Player");
+        addPlayer.addActionListener(e -> new Players());
+        JMenuItem addHost = new JMenuItem("Add Host");
+        addHost.addActionListener(e -> new Hosts());
+        JMenuItem layout = new JMenuItem("Layout");
+        layout.addActionListener(e -> launch.layout());
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Create and add GUI components here
-        // For example, use JLabels, JTextFields, JButtons, etc.
-
-        // Here's a simple example with just a "Play" button:
-        JButton playButton = new JButton("Play");
+        JButton playButton = new JButton("New Game");
         playButton.addActionListener(e -> startGame());
+        checkBox.addActionListener(e -> saveMessages = true);
 
-        frame.getContentPane().add(playButton);
+        frame.setJMenuBar(mainBar);
+        mainBar.add(menu1);
+        menu1.setMnemonic('G');
+        menu1.add(addHost);
+        menu1.add(addPlayer);
+        mainBar.add(menu2);
+        menu2.setMnemonic('A');
+        menu2.add(layout);
+        frame.getContentPane().add(outerPanel);
+        outerPanel.add(scroll);
+        innerPanel.add(playButton);
+        innerPanel.add(gameInfo);
+        outerPanel.add(checkBox);
         frame.pack();
         frame.setVisible(true);
+        gameInfo.setEditable(false);
     }
 
     private static void startGame() {
-        Players[] currentPlayers = new Players[3];
-        boolean bool;
-
-        Hosts host = new Hosts();
-        for (int i = 0; i < 3; i++) {
-            String firstName = JOptionPane.showInputDialog("Please enter your first name!");
-            int option = JOptionPane.showConfirmDialog(null, "Would you like to enter a last name?", "Last Name", JOptionPane.YES_NO_OPTION);
-
-            String lastName = "";
-            if (option == JOptionPane.YES_OPTION) {
-                lastName = JOptionPane.showInputDialog("Please enter your last name!");
-            }
-
-            Players player;
-            if (!lastName.isEmpty()) {
-                player = new Players(firstName, lastName);
-            } else {
-                player = new Players(firstName);
-            }
-
-            currentPlayers[i] = player;
+        if (currentHosts.isEmpty() || currentPlayers.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Must have at least 1 host and 1 player!");
         }
 
         while (playAgain) {
+            Hosts host = currentHosts.get(0);
             String phrase = JOptionPane.showInputDialog("Enter the phrase!");
             host.setPhrase(phrase);
 

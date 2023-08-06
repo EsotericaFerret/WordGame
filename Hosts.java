@@ -14,11 +14,20 @@ public class Hosts extends Person {
         hostInfoPanel.add(new JLabel("Please enter host's last name:"));
         lastNameField = new JTextField(20);
         hostInfoPanel.add(lastNameField);
+        
 
         int result = JOptionPane.showConfirmDialog(null, hostInfoPanel, "Host Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            setFirstName(firstNameField.getText());
-            setLastName(lastNameField.getText());
+            if (GamePlayGUI.currentHosts.isEmpty()){
+                setFirstName(firstNameField.getText());
+                setLastName(lastNameField.getText());
+                GamePlayGUI.currentHosts.add(0, this);
+            }
+            else {
+                setFirstName(firstNameField.getText());
+                setLastName(lastNameField.getText());
+                GamePlayGUI.currentHosts.set(0, this);
+            }
         } else {
             // Handle the case where the user cancels entering host information
         }

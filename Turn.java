@@ -6,9 +6,14 @@ public class Turn {
         String playerInfo = player.getNameOnly();
         String hostInfo = host.toString();
         String phraseSolution = Phrases.currentSolution;
-        JOptionPane.showMessageDialog(null, "The phrase to guess is: " + phraseSolution);
-
-        JOptionPane.showMessageDialog(null, hostInfo + " says \"" + playerInfo + ", enter a letter that you guess to be in the phrase!\"");
+        if (GamePlayGUI.saveMessages == true) {
+        GamePlayGUI.gameInfo.append("The phrase to guess is: " + phraseSolution + "\n");
+        GamePlayGUI.gameInfo.append(hostInfo + " says \"" + playerInfo + ", enter a letter that you guess to be in the phrase!\"\n");
+        }
+        else {
+            GamePlayGUI.gameInfo.setText("The phrase to guess is: " + phraseSolution + "\n");
+        GamePlayGUI.gameInfo.setText(hostInfo + " says \"" + playerInfo + ", enter a letter that you guess to be in the phrase!\"\n");
+        }
         char letterGuess = dataValidation();
 
         boolean isLetterCorrect = Phrases.compareLetter(letterGuess);
