@@ -4,9 +4,6 @@ import java.util.Random;
 public class Game {
     private String phrase;
     private String maskedPhrase;
-    private Host host;
-    private Player player;
-    private Money money;
     private Physical physical;
     private boolean gameStarted;
     private int lettersRemaining;
@@ -47,7 +44,7 @@ public class Game {
             // Check if the guessed character is in the phrase
             for (int i = 0; i < phrase.length(); i++) {
                 char phraseChar = Character.toLowerCase(phrase.charAt(i));
-                if (phraseChar == guessedChar && maskedPhrase.charAt(i) == '*') {
+                if (phraseChar == guessedChar && maskedPhrase.charAt(i) == '_') {
                     // Update masked phrase
                     StringBuilder updatedMasked = new StringBuilder(maskedPhrase);
                     updatedMasked.setCharAt(i, phrase.charAt(i));
@@ -85,10 +82,9 @@ public class Game {
         Random random = new Random();
         boolean moneyReward = random.nextBoolean();
         if (moneyReward) {
-            int moneyAmount = random.nextInt(501) + 500; // Random amount between 500 and 1000
+            int moneyAmount = random.nextInt(501) + 1; // Random amount between 1 and 500
             player.deductMoney(moneyAmount);
-            money = new Money(moneyAmount);
-            GamePlayGUI.outputArea.append("You lost $" + moneyAmount + "!\n You now have $" + money.getAmount());
+            GamePlayGUI.outputArea.append("You lost $" + moneyAmount + "!\n You now have $" + player.getMoney() + "\r\n");
         }
         else {
             String randomPhysicalReward = physicalRewards[random.nextInt(physicalRewards.length)];
@@ -103,8 +99,7 @@ public class Game {
         if (moneyReward) {
             int moneyAmount = random.nextInt(501) + 500; // Random amount between 500 and 1000
             player.addMoney(moneyAmount);
-            money = new Money(moneyAmount);
-            GamePlayGUI.outputArea.append("You won $" + moneyAmount + "!\n You now have $" + money.getAmount());
+            GamePlayGUI.outputArea.append("You won $" + moneyAmount + "!\n You now have $" + player.getMoney() + "\r\n");
         } 
         else {
             String randomPhysicalReward = physicalRewards[random.nextInt(physicalRewards.length)];

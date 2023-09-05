@@ -13,4 +13,8 @@ public class Money extends Reward {
     public int getAmount() {
         return amount;
     }
+
+    public void setAmount(int value) {
+        this.amount = value;
+    }
 }

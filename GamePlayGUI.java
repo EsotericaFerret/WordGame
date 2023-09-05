@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GamePlayGUI extends JFrame {
     private JTextField playerNameField;
@@ -98,7 +97,7 @@ public class GamePlayGUI extends JFrame {
     
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startGame();
+                runGame();
             }
         });
     
@@ -147,16 +146,16 @@ public class GamePlayGUI extends JFrame {
         }
     }
  
-      private void startGame() {
+      private void runGame() {
         if (currentGame != null) {
             currentGame.startGame();
             startGameButton.setEnabled(false);
             playerGuessField.setEnabled(true);
             submitGuessButton.setEnabled(true);
             outputArea.append("Game Started!\n");
-            while (gameOver == false) {
-                new Thread(new Runnable() {
-                    public void run() {
+            new Thread(new Runnable() {
+                public void run() {
+                while (gameOver == false) {
                     for (Player player : players) {
                     outputArea.append("Phrase to guess is " + currentGame.getMaskedPhrase() + "\n");
                     outputArea.append(player.getName() + ", please submit a single letter guess \r\n");
@@ -175,8 +174,8 @@ public class GamePlayGUI extends JFrame {
                     }
                     }
                 }
-                }).start();
                 }
+            }).start();
             }   
         }
 

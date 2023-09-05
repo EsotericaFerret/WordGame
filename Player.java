@@ -1,10 +1,10 @@
 public class Player {
     private String name;
-    private int money;
+    private Money money;
     
     public Player(String name) {
         this.name = name;
-        this.money = 1000;
+        money = new Money(1000);
     }
     
     public String getName() {
@@ -12,15 +12,15 @@ public class Player {
     }
 
     public int getMoney() {
-        return money;
+        return money.getAmount();
     }
 
     public void deductMoney(int amount) {
-        money -= amount;
+        money.setAmount(money.getAmount() - amount);
     }
 
     public void addMoney(int amount) {
-        money += amount;
+        money.setAmount(amount + money.getAmount());
     }
 
 }
