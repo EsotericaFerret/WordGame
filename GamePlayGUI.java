@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.*;
@@ -23,6 +25,12 @@ public class GamePlayGUI extends JFrame {
     static Game currentGame;
     static Object lock = new Object();
     static boolean gameOver = false;
+    static JLabel label = new JLabel();
+    static ImageIcon carIcon = new ImageIcon("assets/car.png");
+    static ImageIcon vacationIcon = new ImageIcon("assets/vacation.png");
+    static ImageIcon phoneIcon = new ImageIcon("assets/phone.png");
+    static ImageIcon patioSetIcon = new ImageIcon("assets/patioSet.png");
+    static ImageIcon washerDryerIcon = new ImageIcon("assets/washerDryer.jpg");
 
         public GamePlayGUI() {
         // Initialize and configure GUI components
@@ -37,7 +45,7 @@ public class GamePlayGUI extends JFrame {
         playerGuessField = new JTextField(10);
         outputArea = new JTextArea(15, 40);
         outputArea.setEditable(false);
-    
+
         // Create radio button group
         ButtonGroup group = new ButtonGroup();
         group.add(hostRadioButton);
@@ -80,10 +88,13 @@ public class GamePlayGUI extends JFrame {
         // Create the main content pane
         contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout(10, 10));
-        contentPane.add(inputPanel, BorderLayout.NORTH);
-        contentPane.add(phrasePanel, BorderLayout.CENTER);
-        contentPane.add(buttonContainer, BorderLayout.SOUTH);
-        contentPane.add(scrollPane, BorderLayout.WEST);
+        contentPane.add(inputPanel, BorderLayout.PAGE_START);
+        contentPane.add(phrasePanel, BorderLayout.LINE_END);
+        contentPane.add(buttonContainer, BorderLayout.PAGE_END);
+        contentPane.add(scrollPane, BorderLayout.LINE_START);
+        contentPane.add(label, BorderLayout.CENTER);
+        label.setBounds(50, 30, 200, 400);
+        label.setVisible(false);
     
         // Add action listeners to buttons
         addButton.addActionListener(new ActionListener() {
@@ -181,12 +192,4 @@ public class GamePlayGUI extends JFrame {
             }).start();
             }   
         }
-
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new GamePlayGUI();
-        });
-    }
 }
