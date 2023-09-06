@@ -1,5 +1,11 @@
+import java.awt.image.*;
+import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import javax.imageio.*;
+
 
 public class Game {
     private String phrase;
@@ -8,6 +14,8 @@ public class Game {
     private boolean gameStarted;
     private int lettersRemaining;
     private String[] physicalRewards = {"Car", "Vacation", "Phone", "Patio Set", "Washer/Dryer Set"};
+    public static String filePath;
+    Graphics graphics;
 
     public Game(String phrase, List<Host> hosts, List<Player> players) {
         this.phrase = phrase;
@@ -90,6 +98,7 @@ public class Game {
             String randomPhysicalReward = physicalRewards[random.nextInt(physicalRewards.length)];
             physical = new Physical(randomPhysicalReward);
             GamePlayGUI.outputArea.append("You lost out on a brand new " + physical.getItem() + " reward.\n");
+            physical.setImage();
         }
     }
 
@@ -105,6 +114,7 @@ public class Game {
             String randomPhysicalReward = physicalRewards[random.nextInt(physicalRewards.length)];
             physical = new Physical(randomPhysicalReward);
             GamePlayGUI.outputArea.append("You won a " + physical.getItem() + "!\n");
+            physical.setImage();
         }
     }
 

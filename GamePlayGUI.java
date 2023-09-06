@@ -2,10 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.*;
 
 public class GamePlayGUI extends JFrame {
+    static Container contentPane;
     private JTextField playerNameField;
     private JRadioButton hostRadioButton, playerRadioButton;
     private JButton addButton;
@@ -75,7 +78,7 @@ public class GamePlayGUI extends JFrame {
         buttonContainer.add(guessPanel);
     
         // Create the main content pane
-        Container contentPane = getContentPane();
+        contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout(10, 10));
         contentPane.add(inputPanel, BorderLayout.NORTH);
         contentPane.add(phrasePanel, BorderLayout.CENTER);
@@ -137,7 +140,7 @@ public class GamePlayGUI extends JFrame {
         String phrase = phraseField.getText();
         if (!phrase.isEmpty() && !hosts.isEmpty() && !players.isEmpty()) {
             currentGame = new Game(phrase, hosts, players);
-            outputArea.append("Submitted Phrase: " + phrase + "\n");
+            outputArea.append("Phrase submitted! Game may start when ready! \r\n");
             phraseField.setEnabled(false);
             submitPhraseButton.setEnabled(false);
             startGameButton.setEnabled(true);
