@@ -1,4 +1,3 @@
-import javax.swing.JLabel;
 import java.util.concurrent.TimeUnit;
 
 public class Physical extends Reward {
@@ -33,7 +32,7 @@ public class Physical extends Reward {
         GamePlayGUI.label.setVisible(true);
         Main.game.repaint();
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

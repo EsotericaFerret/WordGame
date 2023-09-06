@@ -8,7 +8,8 @@
             "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "Main"
+            "mainClass": "Main",
+            "args": ["> in.txt 2>&1"]
         }
     ]
 }

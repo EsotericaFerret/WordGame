@@ -8,7 +8,7 @@ public class Game {
     private String phrase;
     private String maskedPhrase;
     private Physical physical;
-    private boolean gameStarted;
+    boolean gameStarted;
     private int lettersRemaining;
     private String[] physicalRewards = {"Car", "Vacation", "Phone", "Patio Set", "Washer/Dryer Set"};
     public static String filePath;
@@ -86,6 +86,9 @@ public class Game {
     private void deductReward(Player player) {
         Random random = new Random();
         boolean moneyReward = random.nextBoolean();
+        Main.wrong.stop();
+        Main.wrong.setFramePosition(0); // Rewind to the beginning of the sound
+        Main.wrong.start();
         if (moneyReward) {
             int moneyAmount = random.nextInt(501) + 1; // Random amount between 1 and 500
             player.deductMoney(moneyAmount);
@@ -97,11 +100,15 @@ public class Game {
             GamePlayGUI.outputArea.append("You lost out on a brand new " + physical.getItem() + " reward.\n");
             physical.setImage();
         }
+
     }
 
     private void grantReward(Player player) {
         Random random = new Random();
         boolean moneyReward = random.nextBoolean();
+        Main.correct.stop();
+        Main.correct.setFramePosition(0); // Rewind to the beginning of the sound
+        Main.correct.start();
         if (moneyReward) {
             int moneyAmount = random.nextInt(501) + 500; // Random amount between 500 and 1000
             player.addMoney(moneyAmount);
@@ -125,5 +132,7 @@ public class Game {
         maskedPhrase = maskPhrase(phrase);
         lettersRemaining = phrase.replaceAll("\\s+", "").length();
         GamePlayGUI.startGameButton.setEnabled(true);
-    }
+        GamePlayGUI.musicSet();
+       }
+
 }
